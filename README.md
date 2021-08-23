@@ -1,4 +1,4 @@
-# super-simple-web-server
+# A Super Simple Web Server
 Simple java version of a web server, trying to steer clear of cheating (i.e., Spring).
 
 This very simple server is just to show a fast implementation of a simple web server in Java.  It makes several assumptions when being run:
