@@ -23,7 +23,18 @@ public class Request
         return params;
     }
 
-    public void setParams(String params) {
+    public String getContentType()
+    {
+        return this.contentType;
+    }
+
+    public String getContentLength()
+    {
+        return this.contentLength;
+    }
+
+    public void setParams(String params)
+    {
         this.params = params;
     }
 
@@ -36,6 +47,7 @@ public class Request
     {
         this.contentLength = contentLength;
     }
+
 
     public void setVerb(final String verb)
     {

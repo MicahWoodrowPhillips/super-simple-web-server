@@ -8,9 +8,10 @@ import server.model.Response;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 import static java.util.Objects.isNull;
-import static server.util.ConstantStrings.URI;
+import static server.util.ConstantStrings.*;
 
 public class Controller
 {
@@ -46,7 +47,7 @@ public class Controller
         }
 
         // New and Existing data
-        else if(Cache.push(request.getBody().get(URI), OffsetDateTime.now().format(format)))
+        else if(Cache.push(request.getBody().get(URI), createEntry(request)))
         {
             response = new Response("", 200);
         }
@@ -74,5 +75,34 @@ public class Controller
         }
 
         return response;
+    }
+
+    private String createEntry(Request request)
+    {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("{");
+        stringBuffer.append(URI + "-name:");
+        stringBuffer.append(request.getBody().get(URI));
+        stringBuffer.append("," + CONTENT_TYPE + ":");
+        stringBuffer.append(request.getContentType());
+        stringBuffer.append("," + CONTENT_LENGTH + ":");
+        stringBuffer.append(request.getContentLength());
+        stringBuffer.append(",Full-body:");
+        stringBuffer.append(bodyToJson(request.getBody()));
+        stringBuffer.append(",Timestamp:");
+        stringBuffer.append(OffsetDateTime.now().format(format));
+        stringBuffer.append("}");
+
+        return stringBuffer.toString();
+    }
+
+    private String bodyToJson(Map<String, String> body)
+    {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("{");
+        body.forEach((k,v) -> stringBuffer.append(k + ":" + v + ","));
+        stringBuffer.setLength(stringBuffer.length()-1);
+        stringBuffer.append("}");
+        return stringBuffer.toString();
     }
 }

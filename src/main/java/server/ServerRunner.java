@@ -16,7 +16,7 @@ import static java.util.Objects.isNull;
 public class ServerRunner
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(ServerRunner.class);
-    private static final Integer DEFAULT_PORT = 8080;
+    private static final String DEFAULT_PORT = "8080";
     private static final String CONFIG = "simple.properties";
     private static final String NAME_CONFIG = "server.name";
     private static final String PORT = "server.port";
@@ -24,6 +24,7 @@ public class ServerRunner
     public static void main(String [] args)
     {
         LOGGER.info("Info level logging is on.");
+        // Only info logging implemented, just used what is default in Slf4j.
 
         Properties properties = createProperties();
         
@@ -38,7 +39,12 @@ public class ServerRunner
         ServerRequestRouter server = null;
         while (true)
         {
-            try(ServerSocket serverSocket = new ServerSocket(Integer.parseInt(properties.getProperty(PORT)), 50, inetAddress))
+            String port = properties.getProperty(PORT);
+            if (isNull(port))
+            {
+                port = DEFAULT_PORT;
+            }
+            try(ServerSocket serverSocket = new ServerSocket(Integer.parseInt(port), 50, inetAddress))
             {
                 server = new ServerRequestRouter(new Controller(), serverSocket.accept());
                 Thread thread = new Thread(server);

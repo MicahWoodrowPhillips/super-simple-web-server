@@ -96,7 +96,7 @@ public class RequestFactory
             if (index > 0)
             {
                 body.put(line.substring(0, index).trim().replaceAll("\"", "").toUpperCase(),
-                        line.substring(index + 1).trim().replaceAll("\"", ""));
+                        line.substring(index + 1).trim().replaceAll(",|\"", ""));
             }
             if (!line.contains(",") || line.contains("}") || line.contains("\u0000"))
             {
