@@ -11,4 +11,5 @@ public class ConstantStrings
     public static final String CONTENT_LENGTH = "content-length";
     public static final String CONTENT_TYPE = "content-type";
     public static final String URI = "URI";
+    public static final String VERSION = "VERSION";
 }

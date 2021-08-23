@@ -8,10 +8,11 @@ import java.util.Map;
 public class Request
 {
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
-    private String params;
+    private Map<String, String> params;
     private String contentType;
     private String contentLength;
-    private String verb = null;
+    private String verb;
+    private String resource;
     private Map<String, String> body;
 
 
@@ -19,7 +20,7 @@ public class Request
         return this.verb;
     }
 
-    public String getParams() {
+    public Map<String, String> getParams() {
         return params;
     }
 
@@ -33,7 +34,7 @@ public class Request
         return this.contentLength;
     }
 
-    public void setParams(String params)
+    public void setParams(final Map<String, String> params)
     {
         this.params = params;
     }
@@ -60,8 +61,18 @@ public class Request
         this.body = body;
     }
 
+    public void setResource(final String resource)
+    {
+        this.resource = resource;
+    }
+
     public Map<String, String> getBody()
     {
         return this.body;
+    }
+
+    public String getResource() 
+    {
+        return this.resource;
     }
 }

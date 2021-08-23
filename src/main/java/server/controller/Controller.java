@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import server.cache.Cache;
 import server.model.Request;
 import server.model.Response;
+import services.ResourceManagementService;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -17,10 +18,16 @@ public class Controller
 {
     Logger LOGGER = LoggerFactory.getLogger(getClass());
     DateTimeFormatter format = DateTimeFormatter.ISO_INSTANT;
+    ResourceManagementService service;
+
+    Controller()
+    {
+        service = new ResourceManagementService(format);
+    }
 
     public Response handleGet(Request request)
     {
-        Response response = new Response(Cache.peek(request.getParams()));
+        Response response = service.getUri(request);
 
         if (isNull(response.getContent()) || response.getContent().length() == 0)
         {
@@ -83,7 +90,7 @@ public class Controller
         stringBuffer.append("{");
         stringBuffer.append(URI + "-name:");
         stringBuffer.append(request.getBody().get(URI));
-        stringBuffer.append("," + CONTENT_TYPE + ":");
+        stringBuffer.append(",MIME:");
         stringBuffer.append(request.getContentType());
         stringBuffer.append("," + CONTENT_LENGTH + ":");
         stringBuffer.append(request.getContentLength());
