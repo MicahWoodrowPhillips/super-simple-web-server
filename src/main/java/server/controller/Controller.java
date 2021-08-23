@@ -1,7 +1,10 @@
-package server.dump;
+package server.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import server.cache.Cache;
+import server.model.Request;
+import server.model.Response;
 
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
@@ -12,7 +15,7 @@ import static server.util.ConstantStrings.URI;
 public class Controller
 {
     Logger LOGGER = LoggerFactory.getLogger(getClass());
-    DateTimeFormatter format = DateTimeFormatter.BASIC_ISO_DATE;
+    DateTimeFormatter format = DateTimeFormatter.ISO_INSTANT;
 
     public Response handleGet(Request request)
     {
@@ -42,8 +45,7 @@ public class Controller
             response = new Response("Invalid data", 403);
         }
 
-        // New data
-        // Existing data
+        // New and Existing data
         else if(Cache.push(request.getBody().get(URI), OffsetDateTime.now().format(format)))
         {
             response = new Response("", 200);
@@ -61,8 +63,6 @@ public class Controller
             response = new Response("Invalid data", 403);
         }
 
-        // New data
-        // Existing data
         else if(Cache.delete(request.getBody().get(URI)))
         {
             response = new Response("", 200);

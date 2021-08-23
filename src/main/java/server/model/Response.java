@@ -1,4 +1,4 @@
-package server.dump;
+package server.model;
 
 import org.apache.http.HttpStatus;
 

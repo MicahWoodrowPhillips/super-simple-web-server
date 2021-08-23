@@ -1,7 +1,11 @@
-package server.dump;
+package server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import server.controller.Controller;
+import server.model.Request;
+import server.model.RequestFactory;
+import server.model.Response;
 
 import java.io.BufferedReader;
 import java.io.IOException;

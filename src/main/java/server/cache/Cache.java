@@ -1,15 +1,13 @@
-package server.dump;
+package server.cache;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.exceptions.JedisDataException;
 
-import java.util.Locale;
 import java.util.logging.Logger;
 
 import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
-// Util class using local default Redis with default port
 public class Cache
 {
     private static Jedis jedis;
